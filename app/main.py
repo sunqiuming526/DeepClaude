@@ -25,6 +25,7 @@ CLAUDE_API_URL = os.getenv("CLAUDE_API_URL", "https://api.anthropic.com/v1/messa
 DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY")
 DEEPSEEK_API_URL = os.getenv("DEEPSEEK_API_URL")
 DEEPSEEK_MODEL = os.getenv("DEEPSEEK_MODEL")
+DEEPSEEK_PROVIDER = os.getenv("DEEPSEEK_PROVIDER", "deepseek")
 
 IS_ORIGIN_REASONING = os.getenv("IS_ORIGIN_REASONING", "True").lower() == "true"
 
@@ -50,6 +51,7 @@ deep_claude = DeepClaude(
     DEEPSEEK_API_URL,
     CLAUDE_API_URL,
     CLAUDE_PROVIDER,
+    DEEPSEEK_PROVIDER,
     IS_ORIGIN_REASONING
 )
 

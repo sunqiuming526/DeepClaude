@@ -61,6 +61,8 @@ class DeepSeekClient(BaseClient):
             "messages": messages,
             "stream": True,
         }
+        if self.provider == "openrouter":
+            data["include_reasoning"] = True
         
         logger.debug(f"开始流式对话：{data}")
 
@@ -83,13 +85,14 @@ class DeepSeekClient(BaseClient):
                             delta = data["choices"][0]["delta"]
                             
                             if is_origin_reasoning:
+                                reasoning_field = "reasoning" if self.provider == "openrouter" else "reasoning_content"
                                 # 处理 reasoning_content
-                                if delta.get("reasoning_content"):
-                                    content = delta["reasoning_content"]
+                                if delta.get(reasoning_field):
+                                    content = delta[reasoning_field]
                                     logger.debug(f"提取推理内容：{content}")
                                     yield "reasoning", content
                                 
-                                if delta.get("reasoning_content") is None and delta.get("content"):
+                                if delta.get(reasoning_field) is None and delta.get("content"):
                                     content = delta["content"]
                                     logger.info(f"提取内容信息，推理阶段结束: {content}")
                                     yield "content", content

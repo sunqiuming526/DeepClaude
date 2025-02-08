@@ -14,6 +14,7 @@ class DeepClaude:
                  deepseek_api_url: str = "https://api.deepseek.com/v1/chat/completions", 
                  claude_api_url: str = "https://api.anthropic.com/v1/messages",
                  claude_provider: str = "anthropic",
+                 deepseek_provider: str = "deepseek",
                  is_origin_reasoning: bool = True):
         """初始化 API 客户端
         
@@ -21,7 +22,7 @@ class DeepClaude:
             deepseek_api_key: DeepSeek API密钥
             claude_api_key: Claude API密钥
         """
-        self.deepseek_client = DeepSeekClient(deepseek_api_key, deepseek_api_url)
+        self.deepseek_client = DeepSeekClient(deepseek_api_key, deepseek_api_url, deepseek_provider)
         self.claude_client = ClaudeClient(claude_api_key, claude_api_url, claude_provider)
         self.is_origin_reasoning = is_origin_reasoning
 
